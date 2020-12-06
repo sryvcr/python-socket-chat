@@ -8,11 +8,14 @@ __SOCKET_BUFFER = 1024
 
 client = socket.socket()
 client.connect((__SOCKET_HOST, __SOCKET_PORT))
+print(f'starting client')
 
+while True:
+    msg_to_send = input('message to send: ')
+    # sends message to server
+    client.send(msg_to_send.encode())
+    # receives what the socket server sends
+    msg_received = client.recv(__SOCKET_BUFFER)
+    print(f'message from server: {msg_received.decode()}')
 
-# sends message to server
-client.send(f'Hello from client'.encode())
-# receives what the socket server sends
-msg = client.recv(__SOCKET_BUFFER)
-print(msg.decode())
 client.close()
